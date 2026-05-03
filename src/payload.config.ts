@@ -1,34 +1,71 @@
-import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+import { buildConfig } from "payload";
+import { postgresAdapter } from "@payloadcms/db-postgres";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { s3Storage } from "@payloadcms/storage-s3";
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
+import { Users } from "./collections/Users.js";
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
+
+dotenv.config({ path: path.resolve(dirname, "..", ".env") });
+
+const r2Enabled = Boolean(
+  process.env.R2_BUCKET &&
+    process.env.R2_PUBLIC_URL &&
+    process.env.S3_ACCESS_KEY_ID &&
+    process.env.S3_SECRET_ACCESS_KEY &&
+    process.env.S3_ENDPOINT
+);
 
 export default buildConfig({
+  secret: (() => {
+    if (!process.env.PAYLOAD_SECRET) {
+      throw new Error("PAYLOAD_SECRET environment variable is required");
+    }
+    return process.env.PAYLOAD_SECRET;
+  })(),
+  serverURL: process.env.NEXT_PUBLIC_SITE_URL,
   admin: {
-    user: Users.slug,
-    importMap: {
-      baseDir: path.resolve(dirname),
-    },
+    user: "users",
   },
-  collections: [Users, Media],
+  collections: [Users],
+  globals: [],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
-  typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: process.env.DATABASE_URL,
     },
+    push: process.env.NODE_ENV !== "production",
   }),
-  sharp,
-  plugins: [],
-})
+  typescript: {
+    outputFile: path.resolve(dirname, "payload-types.ts"),
+  },
+  plugins: [
+    s3Storage({
+      enabled: r2Enabled,
+      collections: {
+        "media-assets": {
+          disablePayloadAccessControl: true,
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            const key = prefix ? `${prefix}/${filename}` : filename;
+            return `${process.env.R2_PUBLIC_URL}/${key}`;
+          },
+        },
+      },
+      bucket: process.env.R2_BUCKET || "",
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || "",
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || "",
+        },
+        endpoint: process.env.S3_ENDPOINT,
+        forcePathStyle: true,
+        region: "auto",
+      },
+    }),
+  ],
+});
