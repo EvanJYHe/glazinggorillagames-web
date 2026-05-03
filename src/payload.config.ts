@@ -6,6 +6,7 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 
+import { MediaAssets } from "./collections/MediaAssets.js";
 import { Users } from "./collections/Users.js";
 
 const filename = fileURLToPath(import.meta.url);
@@ -32,7 +33,7 @@ export default buildConfig({
   admin: {
     user: "users",
   },
-  collections: [Users],
+  collections: [Users, MediaAssets],
   globals: [],
   editor: lexicalEditor(),
   db: postgresAdapter({
