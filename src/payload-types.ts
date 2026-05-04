@@ -68,6 +68,10 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    games: Game;
+    groups: Group;
+    'media-cards': MediaCard;
+    'social-profiles': SocialProfile;
     'media-assets': MediaAsset;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -77,6 +81,10 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    games: GamesSelect<false> | GamesSelect<true>;
+    groups: GroupsSelect<false> | GroupsSelect<true>;
+    'media-cards': MediaCardsSelect<false> | MediaCardsSelect<true>;
+    'social-profiles': SocialProfilesSelect<false> | SocialProfilesSelect<true>;
     'media-assets': MediaAssetsSelect<false> | MediaAssetsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -146,6 +154,80 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "games".
+ */
+export interface Game {
+  id: number;
+  /**
+   * Roblox universe ID. Everything else (name, stats, thumbnail) is fetched from Roblox automatically.
+   */
+  universeId: number;
+  /**
+   * Synced from Roblox automatically.
+   */
+  name?: string | null;
+  /**
+   * Higher values appear first. Leave at 0 for the default ranking (sorted by lifetime visits). Use a positive value to pin a game above the rest.
+   */
+  displayOrder?: number | null;
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "groups".
+ */
+export interface Group {
+  id: number;
+  /**
+   * Roblox group ID. Name and member count are fetched from Roblox automatically.
+   */
+  groupId: number;
+  /**
+   * Synced from Roblox automatically.
+   */
+  name?: string | null;
+  isActive?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media-cards".
+ */
+export interface MediaCard {
+  id: string;
+  /**
+   * Internal label shown in the admin list (not rendered on the public site).
+   */
+  name: string;
+  displayOrder?: number | null;
+  eyebrow?: string | null;
+  headline: string;
+  metricKey?: string | null;
+  subLabel?: string | null;
+  description?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  mediaType: 'video' | 'image';
+  mediaAsset: number | MediaAsset;
+  mediaAlt?: string | null;
+  mediaOverlay?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  mediaPosition?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media-assets".
  */
 export interface MediaAsset {
@@ -164,6 +246,18 @@ export interface MediaAsset {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-profiles".
+ */
+export interface SocialProfile {
+  id: string;
+  displayOrder?: number | null;
+  platform: string;
+  href: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -192,6 +286,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'games';
+        value: number | Game;
+      } | null)
+    | ({
+        relationTo: 'groups';
+        value: number | Group;
+      } | null)
+    | ({
+        relationTo: 'media-cards';
+        value: string | MediaCard;
+      } | null)
+    | ({
+        relationTo: 'social-profiles';
+        value: string | SocialProfile;
       } | null)
     | ({
         relationTo: 'media-assets';
@@ -262,6 +372,64 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "games_select".
+ */
+export interface GamesSelect<T extends boolean = true> {
+  universeId?: T;
+  name?: T;
+  displayOrder?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "groups_select".
+ */
+export interface GroupsSelect<T extends boolean = true> {
+  groupId?: T;
+  name?: T;
+  isActive?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media-cards_select".
+ */
+export interface MediaCardsSelect<T extends boolean = true> {
+  id?: T;
+  name?: T;
+  displayOrder?: T;
+  eyebrow?: T;
+  headline?: T;
+  metricKey?: T;
+  subLabel?: T;
+  description?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  mediaType?: T;
+  mediaAsset?: T;
+  mediaAlt?: T;
+  mediaOverlay?: T;
+  mediaPosition?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "social-profiles_select".
+ */
+export interface SocialProfilesSelect<T extends boolean = true> {
+  id?: T;
+  displayOrder?: T;
+  platform?: T;
+  href?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
