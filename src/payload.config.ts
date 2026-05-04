@@ -10,6 +10,9 @@ import { Games } from "./collections/Games.js";
 import { Groups } from "./collections/Groups.js";
 import { MediaAssets } from "./collections/MediaAssets.js";
 import { MediaCards } from "./collections/MediaCards.js";
+import { RuntimeGameMetrics } from "./collections/RuntimeGameMetrics.js";
+import { RuntimeGroupMetrics } from "./collections/RuntimeGroupMetrics.js";
+import { RuntimeRefreshRuns } from "./collections/RuntimeRefreshRuns.js";
 import { SocialProfiles } from "./collections/SocialProfiles.js";
 import { Users } from "./collections/Users.js";
 
@@ -37,7 +40,17 @@ export default buildConfig({
   admin: {
     user: "users",
   },
-  collections: [Users, Games, Groups, MediaCards, SocialProfiles, MediaAssets],
+  collections: [
+    Users,
+    Games,
+    Groups,
+    MediaCards,
+    SocialProfiles,
+    MediaAssets,
+    RuntimeGameMetrics,
+    RuntimeGroupMetrics,
+    RuntimeRefreshRuns,
+  ],
   globals: [],
   editor: lexicalEditor(),
   db: postgresAdapter({

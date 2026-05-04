@@ -73,6 +73,9 @@ export interface Config {
     'media-cards': MediaCard;
     'social-profiles': SocialProfile;
     'media-assets': MediaAsset;
+    'runtime-game-metrics': RuntimeGameMetric;
+    'runtime-group-metrics': RuntimeGroupMetric;
+    'runtime-refresh-runs': RuntimeRefreshRun;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +89,9 @@ export interface Config {
     'media-cards': MediaCardsSelect<false> | MediaCardsSelect<true>;
     'social-profiles': SocialProfilesSelect<false> | SocialProfilesSelect<true>;
     'media-assets': MediaAssetsSelect<false> | MediaAssetsSelect<true>;
+    'runtime-game-metrics': RuntimeGameMetricsSelect<false> | RuntimeGameMetricsSelect<true>;
+    'runtime-group-metrics': RuntimeGroupMetricsSelect<false> | RuntimeGroupMetricsSelect<true>;
+    'runtime-refresh-runs': RuntimeRefreshRunsSelect<false> | RuntimeRefreshRunsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -261,6 +267,101 @@ export interface SocialProfile {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-game-metrics".
+ */
+export interface RuntimeGameMetric {
+  id: number;
+  universeId: number;
+  name: string;
+  description?: string | null;
+  playing?: number | null;
+  visits?: number | null;
+  maxPlayers?: number | null;
+  created?: string | null;
+  updated?: string | null;
+  rootPlaceId?: number | null;
+  favorites?: number | null;
+  likes?: number | null;
+  downVotes?: number | null;
+  isPlayable?: boolean | null;
+  genre?: string | null;
+  price?: number | null;
+  thumbnailUrl?: string | null;
+  thumbnailState?: string | null;
+  refreshedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-group-metrics".
+ */
+export interface RuntimeGroupMetric {
+  id: number;
+  groupId: number;
+  name: string;
+  description?: string | null;
+  memberCount?: number | null;
+  refreshedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-refresh-runs".
+ */
+export interface RuntimeRefreshRun {
+  id: number;
+  status: 'success' | 'partial_failure' | 'failure';
+  startedAt: string;
+  finishedAt: string;
+  gamesCount?: number | null;
+  groupsCount?: number | null;
+  totalPlaying?: number | null;
+  totalVisits?: number | null;
+  totalMembers?: number | null;
+  errorMessage?: string | null;
+  warnings?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  gamesSnapshot?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  groupsSnapshot?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  imagesSnapshot?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -306,6 +407,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media-assets';
         value: number | MediaAsset;
+      } | null)
+    | ({
+        relationTo: 'runtime-game-metrics';
+        value: number | RuntimeGameMetric;
+      } | null)
+    | ({
+        relationTo: 'runtime-group-metrics';
+        value: number | RuntimeGroupMetric;
+      } | null)
+    | ({
+        relationTo: 'runtime-refresh-runs';
+        value: number | RuntimeRefreshRun;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -450,6 +563,66 @@ export interface MediaAssetsSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-game-metrics_select".
+ */
+export interface RuntimeGameMetricsSelect<T extends boolean = true> {
+  universeId?: T;
+  name?: T;
+  description?: T;
+  playing?: T;
+  visits?: T;
+  maxPlayers?: T;
+  created?: T;
+  updated?: T;
+  rootPlaceId?: T;
+  favorites?: T;
+  likes?: T;
+  downVotes?: T;
+  isPlayable?: T;
+  genre?: T;
+  price?: T;
+  thumbnailUrl?: T;
+  thumbnailState?: T;
+  refreshedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-group-metrics_select".
+ */
+export interface RuntimeGroupMetricsSelect<T extends boolean = true> {
+  groupId?: T;
+  name?: T;
+  description?: T;
+  memberCount?: T;
+  refreshedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "runtime-refresh-runs_select".
+ */
+export interface RuntimeRefreshRunsSelect<T extends boolean = true> {
+  status?: T;
+  startedAt?: T;
+  finishedAt?: T;
+  gamesCount?: T;
+  groupsCount?: T;
+  totalPlaying?: T;
+  totalVisits?: T;
+  totalMembers?: T;
+  errorMessage?: T;
+  warnings?: T;
+  gamesSnapshot?: T;
+  groupsSnapshot?: T;
+  imagesSnapshot?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
