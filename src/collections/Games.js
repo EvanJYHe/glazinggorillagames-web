@@ -1,5 +1,5 @@
 import { adminsOnly, publicRead } from "../lib/payload/access.js";
-// import { refreshSingleGame } from "../lib/runtime/singleRefresh.js";
+import { refreshSingleGame } from "../lib/runtime/singleRefresh.js";
 
 /** @type {import("payload").CollectionConfig} */
 export const Games = {
@@ -45,18 +45,18 @@ export const Games = {
   ],
   hooks: {
     ...adminsOnly,
-    // afterChange: [
-    //   ({ context, doc, operation, req }) => {
-    //     if (operation !== "create" || !doc?.universeId || context?.skipSingleRefresh) {
-    //       return;
-    //     }
-    //
-    //     refreshSingleGame(doc.universeId).catch((error) => {
-    //       req?.payload?.logger?.error?.(
-    //         `Single-game refresh failed for universeId ${doc.universeId}: ${error?.message || error}`
-    //       );
-    //     });
-    //   },
-    // ],
+    afterChange: [
+      ({ context, doc, operation, req }) => {
+        if (operation !== "create" || !doc?.universeId || context?.skipSingleRefresh) {
+          return;
+        }
+
+        refreshSingleGame(doc.universeId).catch((error) => {
+          req?.payload?.logger?.error?.(
+            `Single-game refresh failed for universeId ${doc.universeId}: ${error?.message || error}`
+          );
+        });
+      },
+    ],
   },
 };

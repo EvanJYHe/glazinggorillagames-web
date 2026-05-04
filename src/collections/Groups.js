@@ -1,5 +1,5 @@
 import { adminsOnly, publicRead } from "../lib/payload/access.js";
-// import { refreshSingleGroup } from "../lib/runtime/singleRefresh.js";
+import { refreshSingleGroup } from "../lib/runtime/singleRefresh.js";
 
 /** @type {import("payload").CollectionConfig} */
 export const Groups = {
@@ -36,18 +36,18 @@ export const Groups = {
   ],
   hooks: {
     ...adminsOnly,
-    // afterChange: [
-    //   ({ context, doc, operation, req }) => {
-    //     if (operation !== "create" || !doc?.groupId || context?.skipSingleRefresh) {
-    //       return;
-    //     }
-    //
-    //     refreshSingleGroup(doc.groupId).catch((error) => {
-    //       req?.payload?.logger?.error?.(
-    //         `Single-group refresh failed for groupId ${doc.groupId}: ${error?.message || error}`
-    //       );
-    //     });
-    //   },
-    // ],
+    afterChange: [
+      ({ context, doc, operation, req }) => {
+        if (operation !== "create" || !doc?.groupId || context?.skipSingleRefresh) {
+          return;
+        }
+
+        refreshSingleGroup(doc.groupId).catch((error) => {
+          req?.payload?.logger?.error?.(
+            `Single-group refresh failed for groupId ${doc.groupId}: ${error?.message || error}`
+          );
+        });
+      },
+    ],
   },
 };
