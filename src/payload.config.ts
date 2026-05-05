@@ -15,6 +15,7 @@ import { RuntimeGroupMetrics } from "./collections/RuntimeGroupMetrics.js";
 import { RuntimeRefreshRuns } from "./collections/RuntimeRefreshRuns.js";
 import { SocialProfiles } from "./collections/SocialProfiles.js";
 import { Users } from "./collections/Users.js";
+import { PublicSite } from "./globals/PublicSite.js";
 import { SiteSettings } from "./globals/SiteSettings.js";
 
 const filename = fileURLToPath(import.meta.url);
@@ -52,7 +53,7 @@ export default buildConfig({
     RuntimeGroupMetrics,
     RuntimeRefreshRuns,
   ],
-  globals: [SiteSettings],
+  globals: [SiteSettings, PublicSite],
   editor: lexicalEditor(),
   db: postgresAdapter({
     pool: {
