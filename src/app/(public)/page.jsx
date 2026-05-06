@@ -1,6 +1,7 @@
 import Footer from "@/features/publicSite/layout/Footer/Footer.jsx";
 import Header from "@/features/publicSite/layout/Header/Header.jsx";
 import Hero from "@/features/publicSite/sections/Hero/Hero.jsx";
+import Media from "@/features/publicSite/sections/Media/Media.jsx";
 import ProofBar from "@/features/publicSite/sections/ProofBar/ProofBar.jsx";
 import TopTitles from "@/features/publicSite/sections/TopTitles/TopTitles.jsx";
 import FadeIn from "@/features/publicSite/shared/FadeIn/FadeIn.jsx";
@@ -50,6 +51,10 @@ export default async function Page() {
           loading={false}
           topTitles={siteContent.topTitles}
         />
+      </FadeIn>
+      <div className={dividerClass} role="presentation" aria-hidden />
+      <FadeIn>
+        <Media cards={pageData.mediaCards} media={siteContent.media} />
       </FadeIn>
       <div className={dividerClass} role="presentation" aria-hidden />
       <Footer
