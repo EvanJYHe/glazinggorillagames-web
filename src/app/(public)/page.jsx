@@ -1,5 +1,6 @@
 import Footer from "@/features/publicSite/layout/Footer/Footer.jsx";
 import Header from "@/features/publicSite/layout/Header/Header.jsx";
+import AboutGGG from "@/features/publicSite/sections/AboutGGG/AboutGGG.jsx";
 import Hero from "@/features/publicSite/sections/Hero/Hero.jsx";
 import Media from "@/features/publicSite/sections/Media/Media.jsx";
 import ProofBar from "@/features/publicSite/sections/ProofBar/ProofBar.jsx";
@@ -55,6 +56,10 @@ export default async function Page() {
       <div className={dividerClass} role="presentation" aria-hidden />
       <FadeIn>
         <Media cards={pageData.mediaCards} media={siteContent.media} />
+      </FadeIn>
+      <div className={dividerClass} role="presentation" aria-hidden />
+      <FadeIn>
+        <AboutGGG aboutGGG={siteContent.aboutGGG} />
       </FadeIn>
       <div className={dividerClass} role="presentation" aria-hidden />
       <Footer
