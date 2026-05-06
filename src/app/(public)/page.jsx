@@ -5,6 +5,7 @@ import Hero from "@/features/publicSite/sections/Hero/Hero.jsx";
 import Media from "@/features/publicSite/sections/Media/Media.jsx";
 import ProofBar from "@/features/publicSite/sections/ProofBar/ProofBar.jsx";
 import TopTitles from "@/features/publicSite/sections/TopTitles/TopTitles.jsx";
+import WorkTogether from "@/features/publicSite/sections/WorkTogether/WorkTogether.jsx";
 import FadeIn from "@/features/publicSite/shared/FadeIn/FadeIn.jsx";
 import { getPublicSiteHomePageData, getPrimaryGroupUrl } from "@/features/publicSite/data/publicSiteData.js";
 import { getPublicSiteChromeState, getPublicSiteState } from "@/lib/publicSite/state.js";
@@ -62,6 +63,12 @@ export default async function Page() {
         <AboutGGG aboutGGG={siteContent.aboutGGG} />
       </FadeIn>
       <div className={dividerClass} role="presentation" aria-hidden />
+      <FadeIn>
+        <WorkTogether
+          contactEmail={siteContent.site.contactEmail}
+          workTogether={siteContent.workTogether}
+        />
+      </FadeIn>
       <Footer
         brandLogoUrl={mediaAssets.brandLogo.url}
         footer={siteContent.footer}
