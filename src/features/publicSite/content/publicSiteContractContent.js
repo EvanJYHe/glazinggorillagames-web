@@ -215,21 +215,8 @@ export const publicSiteContractContent = {
     backLabel: "Back to home",
     titleLead: "All",
     titleAccent: "Games",
+    emptyMessage: "No games to show right now. Check back soon.",
   },
-};
-
-publicSiteContractContent.header = publicSiteContractContent.nav;
-publicSiteContractContent.proofBar = {
-  ticker: publicSiteContractContent.ticker,
-  statsAriaLabel: publicSiteContractContent.stats.ariaLabel,
-  fallbacks: publicSiteContractContent.stats.fallbacks,
-  statCards: publicSiteContractContent.stats.cards,
-};
-publicSiteContractContent.topTitles = publicSiteContractContent.catalog;
-publicSiteContractContent.media = publicSiteContractContent.social;
-publicSiteContractContent.aboutGGG = publicSiteContractContent.studio;
-publicSiteContractContent.workTogether = {
-  ...publicSiteContractContent.contact,
 };
 
 export function clonePublicSiteContractContent() {

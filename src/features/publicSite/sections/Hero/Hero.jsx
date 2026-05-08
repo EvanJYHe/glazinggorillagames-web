@@ -23,6 +23,8 @@ const Hero = ({ hero, heroKeyArtUrl }) => {
           src={heroKeyArtUrl}
           alt=""
           decoding="async"
+          loading="eager"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(9,9,9,1)_0%,rgba(9,9,9,0.98)_35%,rgba(9,9,9,0.7)_50%,rgba(9,9,9,0)_70%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(9,9,9,1)_0%,transparent_40%)]" />

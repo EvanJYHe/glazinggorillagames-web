@@ -306,7 +306,7 @@ export default function Media({ cards, media }) {
   return (
     <PageContainer as="section" id="social" className="py-16 sm:py-20 lg:py-[88px]">
       <MediaCarousel
-        cards={cards?.length ? cards : media.mediaCards}
+        cards={cards}
         active={active}
         setActive={setActive}
         media={media}

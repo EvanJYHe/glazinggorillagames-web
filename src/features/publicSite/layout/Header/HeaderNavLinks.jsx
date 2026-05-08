@@ -23,7 +23,6 @@ export default function HeaderNavLinks({ items }) {
     () => items.map(item => getSectionId(item.href)).filter(Boolean),
     [items],
   );
-  const sectionKey = sectionIds.join(",");
 
   const [activeSectionId, setActiveSectionId] = useState(null);
 
@@ -53,7 +52,7 @@ export default function HeaderNavLinks({ items }) {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [sectionKey, pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [sectionIds, pathname]);
 
   return items.map(item => {
     const sectionId = getSectionId(item.href);

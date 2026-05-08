@@ -3,9 +3,7 @@ import { getPublicSiteGamesPageData } from "../../data/publicSiteData.js";
 import FadeIn from "../../shared/FadeIn/FadeIn.jsx";
 import GameCardGrid from "../../shared/GameCard/GameCardGrid.jsx";
 import StateCard from "../../ui/StateCard.jsx";
-import GamesGallerySkeleton, {
-  GAMES_GALLERY_GRID_CLASS,
-} from "./GamesGallerySkeleton.jsx";
+import { GAMES_GALLERY_GRID_CLASS } from "./GamesGallerySkeleton.jsx";
 
 export default async function GamesGrid() {
   const state = await getPublicSiteState();
@@ -38,9 +36,7 @@ export default async function GamesGrid() {
           ))}
         </div>
       ) : (
-        <div aria-labelledby="games-page-heading">
-          <GamesGallerySkeleton />
-        </div>
+        <StateCard>{siteContent.gamesPage.emptyMessage}</StateCard>
       )}
     </>
   );

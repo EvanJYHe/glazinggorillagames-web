@@ -1,5 +1,3 @@
-import { cache } from "react";
-
 import { clonePublicSiteContractContent } from "@/features/publicSite/content/publicSiteContractContent.js";
 import { publicSiteMediaAssets as fallbackMediaAssets } from "@/features/publicSite/content/publicSiteMediaAssets.js";
 import { getPayloadClient } from "@/lib/payload/client.js";
@@ -225,7 +223,7 @@ function buildMetrics({ games, groups, runtime }) {
   };
 }
 
-const loadPayloadChromeContent = cache(async () => {
+const loadPayloadChromeContent = async () => {
   const payload = await getPayloadClient();
 
   const [
@@ -280,7 +278,7 @@ const loadPayloadChromeContent = cache(async () => {
     siteSettings: siteSettings || getFallbackSiteSettings(),
     socialProfiles: socialProfilesResult.docs.length ? socialProfilesResult.docs : getFallbackSocialProfiles(),
   };
-});
+};
 
 async function loadPayloadContent() {
   const payload = await getPayloadClient();
