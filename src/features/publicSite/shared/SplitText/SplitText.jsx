@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { cn } from "../../../../lib/utils.js";
 import useInViewOnce from "../useInViewOnce.js";
 
@@ -23,7 +21,7 @@ const SplitText = ({
     <Component ref={ref} aria-label={text} className={cn("inline", className)}>
       {parts.map((part, i) => {
         if (part === "" || /^\s+$/.test(part)) {
-          return <React.Fragment key={i}>{part}</React.Fragment>;
+          return <span key={i}>{part}</span>;
         }
         const idx = wordIndex;
         wordIndex += 1;

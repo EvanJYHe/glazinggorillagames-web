@@ -10,7 +10,7 @@ export const SiteSettings = {
       type: "json",
       required: true,
       admin: {
-        description: "Mirrors the legacy publicSiteContractContent.site shape.",
+        description: "Site-wide metadata: name, contact email, copyright text, and related identity.",
       },
     },
   ],

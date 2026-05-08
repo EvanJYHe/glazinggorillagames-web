@@ -1,4 +1,4 @@
-import { adminOnlyAccess, adminsOnly } from "../lib/payload/access.js";
+import { adminOnlyAccess } from "../lib/payload/access.js";
 
 /** @type {import("payload").CollectionConfig} */
 export const RuntimeGameMetrics = {
@@ -97,5 +97,4 @@ export const RuntimeGameMetrics = {
       required: true,
     },
   ],
-  hooks: adminsOnly,
 };

@@ -677,7 +677,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface SiteSetting {
   id: number;
   /**
-   * Mirrors the legacy publicSiteContractContent.site shape.
+   * Site-wide metadata: name, contact email, copyright text, and related identity.
    */
   site:
     | {

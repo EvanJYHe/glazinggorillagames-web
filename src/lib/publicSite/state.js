@@ -10,7 +10,7 @@ import {
   getFallbackSiteSettings,
   getFallbackSocialProfiles,
 } from "@/lib/publicSite/seedData.js";
-import { fetchRuntimePublicData } from "@/lib/publicSite/runtime.js";
+import { fetchRuntimePublicData } from "@/lib/runtime/publicData.js";
 
 const PUBLIC_SITE_CONTRACT_VERSION = "public-site-v1";
 const PUBLIC_SITE_STATE_CACHE_TTL_MS = Number(process.env.PUBLIC_SITE_STATE_CACHE_TTL_MS || 10_000);

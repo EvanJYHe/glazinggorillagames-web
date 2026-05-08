@@ -20,6 +20,5 @@ content.workTogether = {
   ...content.contact,
 };
 
-export const publicSiteContent = content;
 export { content };
 export { CONTACT_EMAIL, GROUP_URL };

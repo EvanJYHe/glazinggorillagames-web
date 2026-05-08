@@ -24,11 +24,7 @@ export const metadata = {
 
 export default function PublicRootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${bebas.variable} ${dm.variable}`}
-    >
+    <html lang="en" className={`${bebas.variable} ${dm.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -37,9 +37,6 @@ export const publicSiteMediaCatalog = {
   },
 };
 
-export const PUBLIC_SITE_MEDIA_REGISTRY_PATH =
-  "cms/src/features/publicSite/content/publicSiteMediaAssets.js";
-
 export const publicSiteMediaCatalogInventory = [
   publicSiteMediaCatalog.brandLogo,
   publicSiteMediaCatalog.heroKeyArt,

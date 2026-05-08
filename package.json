@@ -61,6 +61,7 @@
     "node": ">=22",
     "pnpm": "^9 || ^10"
   },
+  "packageManager": "pnpm@10.15.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp",

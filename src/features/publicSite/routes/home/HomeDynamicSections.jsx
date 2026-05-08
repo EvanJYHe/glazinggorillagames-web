@@ -31,7 +31,6 @@ export default async function HomeDynamicSections() {
           error={!runtimeAvailable}
           gameCard={siteContent.gameCard}
           games={pageData.games}
-          loading={false}
           topTitles={siteContent.topTitles}
         />
       </FadeIn>
