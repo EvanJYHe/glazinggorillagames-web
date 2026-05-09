@@ -1,11 +1,10 @@
 import { getPayloadClient } from "../payload/client.js";
 import { fetchRobloxRuntimeData } from "./roblox.js";
 import {
-  buildGameMetricsRow,
   buildGroupMetricsRow,
   updateEditorialGameName,
   updateEditorialGroupName,
-  upsertGameMetrics,
+  upsertGameWithThumbnailCache,
   upsertGroupMetrics,
 } from "./refresh.js";
 
@@ -32,7 +31,7 @@ export async function refreshSingleGame(universeId, { fetchImpl = fetch, logger 
   const refreshedAt = new Date().toISOString();
 
   await Promise.all([
-    upsertGameMetrics(payload, buildGameMetricsRow(game, image, refreshedAt)),
+    upsertGameWithThumbnailCache(payload, { game, image, refreshedAt, logger }),
     updateEditorialGameName(payload, id, game.name),
   ]);
 

@@ -1,8 +1,22 @@
 import { getPayloadClient } from "../payload/client.js";
 import { fetchRobloxRuntimeData } from "./roblox.js";
+import { cacheGameThumbnail } from "./thumbnailCache.js";
+
+const THUMBNAIL_REFRESH_MS = 7 * 24 * 60 * 60 * 1000;
 
 function toErrorMessage(error) {
   return error?.message || String(error);
+}
+
+function isCachedThumbnailFresh(cachedAt, now = Date.now()) {
+  if (!cachedAt) {
+    return false;
+  }
+  const cachedTime = new Date(cachedAt).getTime();
+  if (Number.isNaN(cachedTime)) {
+    return false;
+  }
+  return now - cachedTime < THUMBNAIL_REFRESH_MS;
 }
 
 async function findOne(payload, collection, where) {
@@ -46,7 +60,7 @@ async function upsertByUniqueField(payload, collection, field, data) {
   });
 }
 
-export function buildGameMetricsRow(game, image, refreshedAt) {
+export function buildGameMetricsRow({ game, image, refreshedAt, cachedUrl = null, cachedAt = null }) {
   return {
     universeId: game.universeId,
     name: game.name,
@@ -65,8 +79,38 @@ export function buildGameMetricsRow(game, image, refreshedAt) {
     price: game.price,
     thumbnailUrl: image?.thumbnailUrl || null,
     thumbnailState: image?.thumbnailState || null,
+    thumbnailCachedUrl: cachedUrl,
+    thumbnailCachedAt: cachedAt,
     refreshedAt,
   };
+}
+
+export async function resolveGameThumbnailCache({
+  existing,
+  image,
+  universeId,
+  cacheImpl = cacheGameThumbnail,
+  logger,
+  now = Date.now(),
+}) {
+  const existingUrl = existing?.thumbnailCachedUrl || null;
+  const existingAt = existing?.thumbnailCachedAt || null;
+
+  if (existingUrl && isCachedThumbnailFresh(existingAt, now)) {
+    return { cachedUrl: existingUrl, cachedAt: existingAt };
+  }
+
+  const sourceUrl = image?.thumbnailUrl;
+  if (!sourceUrl) {
+    return { cachedUrl: existingUrl, cachedAt: existingAt };
+  }
+
+  const newUrl = await cacheImpl({ universeId, sourceUrl, logger });
+  if (!newUrl) {
+    return { cachedUrl: existingUrl, cachedAt: existingAt };
+  }
+
+  return { cachedUrl: newUrl, cachedAt: new Date(now).toISOString() };
 }
 
 export function buildGroupMetricsRow(group, refreshedAt) {
@@ -153,7 +197,25 @@ async function loadActiveCatalog(payload) {
   };
 }
 
-async function upsertRuntimeRows(payload, { games, groups, images, refreshedAt }) {
+export async function upsertGameWithThumbnailCache(payload, { game, image, refreshedAt, logger }) {
+  const existing = await findOne(payload, "runtime-game-metrics", {
+    universeId: { equals: game.universeId },
+  });
+
+  const { cachedUrl, cachedAt } = await resolveGameThumbnailCache({
+    existing,
+    image,
+    universeId: game.universeId,
+    logger,
+  });
+
+  return upsertGameMetrics(
+    payload,
+    buildGameMetricsRow({ game, image, refreshedAt, cachedUrl, cachedAt })
+  );
+}
+
+async function upsertRuntimeRows(payload, { games, groups, images, refreshedAt, logger }) {
   const imagesByUniverseId = new Map(images.map((image) => [image.universeId, image]));
   const fetchedGames = games.filter((game) => game.fetched);
   const fetchedGroups = groups.filter((group) => group.fetched);
@@ -162,7 +224,7 @@ async function upsertRuntimeRows(payload, { games, groups, images, refreshedAt }
     ...fetchedGames.flatMap((game) => {
       const image = imagesByUniverseId.get(game.universeId);
       return [
-        upsertGameMetrics(payload, buildGameMetricsRow(game, image, refreshedAt)),
+        upsertGameWithThumbnailCache(payload, { game, image, refreshedAt, logger }),
         updateEditorialGameName(payload, game.universeId, game.name),
       ];
     }),
@@ -225,6 +287,7 @@ export async function refreshRobloxRuntime({ fetchImpl = fetch, logger = console
       groups: result.groups,
       images: result.images,
       refreshedAt: finishedAt,
+      logger,
     });
     await insertRefreshRun(payload, {
       finishedAt,

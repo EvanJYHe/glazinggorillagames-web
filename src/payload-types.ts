@@ -220,6 +220,9 @@ export interface MediaCard {
   metricKey?: string | null;
   subLabel?: string | null;
   description?: string | null;
+  /**
+   * Short-form description shown on mobile screens. Falls back to the long description if blank.
+   */
   descriptionMobile?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
@@ -295,6 +298,8 @@ export interface RuntimeGameMetric {
   price?: number | null;
   thumbnailUrl?: string | null;
   thumbnailState?: string | null;
+  thumbnailCachedUrl?: string | null;
+  thumbnailCachedAt?: string | null;
   refreshedAt: string;
   updatedAt: string;
   createdAt: string;
@@ -594,6 +599,8 @@ export interface RuntimeGameMetricsSelect<T extends boolean = true> {
   price?: T;
   thumbnailUrl?: T;
   thumbnailState?: T;
+  thumbnailCachedUrl?: T;
+  thumbnailCachedAt?: T;
   refreshedAt?: T;
   updatedAt?: T;
   createdAt?: T;

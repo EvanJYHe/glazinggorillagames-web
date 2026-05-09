@@ -8,9 +8,9 @@ export default function GamesGallerySkeleton() {
     <div className={GAMES_GALLERY_GRID_CLASS}>
       {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
         <div key={index}>
-          <div className="aspect-square animate-pulse rounded-ggg-md border border-white/[0.07] bg-white/[0.03]" />
-          <div className="mt-3 h-3 w-2/3 animate-pulse rounded-full bg-white/[0.05]" />
-          <div className="mt-2 h-3 w-1/2 animate-pulse rounded-full bg-white/[0.04]" />
+          <div className="aspect-square animate-pulse rounded-ggg-md bg-white/[0.06]" />
+          <div className="mt-3 h-3 w-2/3 animate-pulse rounded-full bg-white/[0.08]" />
+          <div className="mt-2 h-3 w-1/2 animate-pulse rounded-full bg-white/[0.06]" />
         </div>
       ))}
     </div>

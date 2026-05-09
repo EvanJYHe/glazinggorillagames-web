@@ -91,6 +91,14 @@ export const RuntimeGameMetrics = {
       type: "text",
     },
     {
+      name: "thumbnailCachedUrl",
+      type: "text",
+    },
+    {
+      name: "thumbnailCachedAt",
+      type: "date",
+    },
+    {
       name: "refreshedAt",
       type: "date",
       index: true,

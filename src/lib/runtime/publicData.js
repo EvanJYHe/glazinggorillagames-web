@@ -58,13 +58,14 @@ function toGroup(metric) {
 }
 
 function toGameImage(metric) {
+  const imageUrl = metric.thumbnailCachedUrl || metric.thumbnailUrl;
   return {
     universeId: metric.universeId,
     name: metric.name,
-    media: metric.thumbnailUrl
+    media: imageUrl
       ? [
           {
-            imageUrl: metric.thumbnailUrl,
+            imageUrl,
             state: metric.thumbnailState || null,
           },
         ]
