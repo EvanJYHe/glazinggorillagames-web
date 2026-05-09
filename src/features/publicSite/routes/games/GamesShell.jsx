@@ -28,11 +28,10 @@ const GamesShell = ({ children, groupUrl, mediaAssets, siteContent }) => {
 
           <div className="flex max-w-[640px] flex-col items-start">
             <h1
-              className="m-0 font-bebas text-[72px] font-bold uppercase leading-[0.88] tracking-[0.005em] text-white [font-synthesis:weight_style] sm:text-[104px] lg:text-[128px]"
+              className="m-0 whitespace-nowrap font-bebas text-[72px] font-bold uppercase leading-[0.88] tracking-[0.005em] text-white [font-synthesis:weight_style] sm:text-[104px] lg:text-[128px]"
               id="games-page-heading"
             >
-              {gamesPage.titleLead}
-              <br />
+              {gamesPage.titleLead}{" "}
               <span className="text-ggg-accent">{gamesPage.titleAccent}</span>
             </h1>
           </div>
