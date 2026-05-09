@@ -51,7 +51,7 @@ export const publicSiteContractContent = {
     fallbacks: {
       totalVisits: "72M+",
       totalMembers: "457K",
-      mediaViews: "115M+",
+      mediaViews: "150M+",
       activePlayers: "1.4K+",
     },
     cards: {
@@ -105,10 +105,12 @@ export const publicSiteContractContent = {
         id: "viral-reach",
         name: "Social Media",
         eyebrow: "Owned Media",
-        headline: "115M+",
+        headline: "150M+",
         subLabel: "OWNED VIEWS",
         description:
-          "Our official short-form content has generated over 115M views across TikTok, Instagram, and YouTube, turning game updates, scares, and character moments into viral clips.",
+          "Our official short-form content has generated over 150M views across TikTok, Instagram, and YouTube, turning game updates, scares, and character moments into viral clips.",
+        descriptionMobile:
+          "Our short-form content has earned 150M+ views across TikTok, Instagram, and YouTube.",
         ctaLabel: "WATCH HIGHLIGHTS",
         ctaHref: "https://www.tiktok.com/@glazinggorillagames?lang=en",
         mediaType: "video",
@@ -127,6 +129,8 @@ export const publicSiteContractContent = {
         subLabel: "SPONSORED MEDIA",
         description:
           "We’ve partnered with numerous YouTubers, Roblox creators, and internet personalities to promote launches, create gameplay videos.",
+        descriptionMobile:
+          "We partner with YouTubers and Roblox creators to promote launches and produce gameplay videos.",
         ctaLabel: "VIEW VIDEO",
         ctaHref: "https://www.youtube.com/@GlazingGorillaGames",
         mediaType: "video",
@@ -147,6 +151,8 @@ export const publicSiteContractContent = {
         subLabel: "COMMUNITY",
         description:
           "Our community stays active through Discord, in-game events, fan reactions, social comments, and shared moments around our games and characters.",
+        descriptionMobile:
+          "Our community stays active across Discord, in-game events, and social around our games.",
         ctaLabel: "JOIN COMMUNITY",
         ctaHref: GROUP_URL,
         mediaType: "image",

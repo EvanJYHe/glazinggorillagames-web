@@ -220,6 +220,7 @@ export interface MediaCard {
   metricKey?: string | null;
   subLabel?: string | null;
   description?: string | null;
+  descriptionMobile?: string | null;
   ctaLabel?: string | null;
   ctaHref?: string | null;
   mediaType: 'video' | 'image';
@@ -528,6 +529,7 @@ export interface MediaCardsSelect<T extends boolean = true> {
   metricKey?: T;
   subLabel?: T;
   description?: T;
+  descriptionMobile?: T;
   ctaLabel?: T;
   ctaHref?: T;
   mediaType?: T;

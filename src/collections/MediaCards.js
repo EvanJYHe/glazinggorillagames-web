@@ -50,6 +50,13 @@ export const MediaCards = {
       type: "textarea",
     },
     {
+      name: "descriptionMobile",
+      type: "textarea",
+      admin: {
+        description: "Short-form description shown on mobile screens. Falls back to the long description if blank.",
+      },
+    },
+    {
       name: "ctaLabel",
       type: "text",
     },

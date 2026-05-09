@@ -317,6 +317,7 @@ function buildChromeContract({ chromeContent, mediaAssets }) {
       metricKey: card.metricKey || null,
       subLabel: card.subLabel,
       description: card.description,
+      descriptionMobile: card.descriptionMobile || null,
       ctaLabel: card.ctaLabel,
       ctaHref: card.ctaHref,
       mediaType: card.mediaType,

@@ -158,6 +158,7 @@ function MediaCta({ card, isActive, className }) {
 }
 
 function MediaContent({ card }) {
+  const mobileDescription = card.descriptionMobile;
   return (
     <aside className="flex min-w-0 flex-col items-stretch justify-start bg-transparent p-0 shadow-none sm:pt-2">
       <div className="mb-3 text-ggg-eyebrow font-bold uppercase text-ggg-accent">
@@ -169,7 +170,17 @@ function MediaContent({ card }) {
       <div className="mb-5 text-ggg-eyebrow font-bold uppercase text-ggg-dim">
         {card.subLabel}
       </div>
-      <p className="max-w-[400px] text-sm font-normal leading-[1.65] text-ggg-muted">
+      {mobileDescription ? (
+        <p className="max-w-[400px] text-sm font-normal leading-[1.65] text-ggg-muted sm:hidden">
+          {mobileDescription}
+        </p>
+      ) : null}
+      <p
+        className={cn(
+          "max-w-[400px] text-sm font-normal leading-[1.65] text-ggg-muted",
+          mobileDescription && "hidden sm:block",
+        )}
+      >
         {card.description}
       </p>
     </aside>
