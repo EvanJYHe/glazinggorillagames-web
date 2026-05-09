@@ -350,13 +350,13 @@ const MediaCarouselIsland = ({ cards, media, heading }) => {
       </div>
 
       <div className="pb-1.5" aria-roledescription="carousel" aria-labelledby="social-media-heading">
-        <div className="xl:hidden">
+        <div className="sm:hidden">
           <MediaScrollCarousel cards={cards} active={active} setActive={setActive} />
         </div>
 
-        <div className="relative mx-auto hidden max-w-[min(1160px,100%)] xl:block">
+        <div className="relative mx-auto hidden max-w-[min(1160px,100%)] sm:block">
           <div className="relative mx-auto overflow-visible pb-2 pt-1 [perspective:1280px] sm:pb-4">
-            <div className="relative grid grid-cols-1 xl:min-h-[480px] xl:[transform-style:preserve-3d]">
+            <div className="relative grid grid-cols-1 xl:[transform-style:preserve-3d]">
               {cards.map((card, index) => {
                 const slot = slideSlot(index, active, length);
 
