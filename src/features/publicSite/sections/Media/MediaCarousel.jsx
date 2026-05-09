@@ -363,21 +363,6 @@ const MediaCarouselIsland = ({ cards, media, heading }) => {
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:mt-6">
-          {cards.map((card, index) => (
-            <button
-              key={card.id}
-              type="button"
-              className={cn(
-                "size-[9px] shrink-0 rounded-full bg-white/[0.22] p-0 transition-[transform,background] duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ggg-accent",
-                index === active && "scale-[1.12] bg-ggg-accent",
-              )}
-              aria-label={`Show ${card.headline}`}
-              aria-current={index === active ? "true" : undefined}
-              onClick={() => setActive(index)}
-            />
-          ))}
-        </div>
       </div>
     </>
   );
