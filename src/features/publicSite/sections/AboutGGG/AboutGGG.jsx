@@ -60,7 +60,7 @@ const AboutGGG = ({ aboutGGG }) => {
   return (
     <section id="studio" className="py-16 sm:py-20 lg:py-[88px]">
       <PageContainer>
-        <h2 className="mb-4 font-bebas font-bold text-ggg-studio uppercase text-ggg-text [font-synthesis:weight_style] sm:mb-6">
+        <h2 className="mb-4 text-center font-bebas font-bold text-ggg-studio uppercase text-ggg-text [font-synthesis:weight_style] sm:mb-6 sm:text-left">
           <SplitText text={titleLeading} />{" "}
           <SplitText text={titleAccent} startDelay={150} className="text-ggg-accent" />
         </h2>
