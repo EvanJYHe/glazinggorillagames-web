@@ -95,7 +95,7 @@ function MediaPanel({ card, isActive, className }) {
 
   return (
     <div className={cn("flex min-w-0 flex-col justify-center", className)}>
-      <div className="relative m-0 aspect-[4/5] w-full overflow-hidden rounded-ggg-lg bg-[#0a0a0a] shadow-[0_18px_38px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.06)] sm:aspect-[9/16] sm:max-h-[390px]">
+      <div className="relative m-0 aspect-[8/9] w-full overflow-hidden rounded-ggg-lg bg-[#0a0a0a] shadow-[0_18px_38px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.06)] sm:aspect-[9/16] sm:max-h-[390px]">
         {card.mediaType === "video" ? (
           <MediaLoopVideo src={card.mediaSrc} caption={card.mediaAlt} isActive={isActive} />
         ) : (
