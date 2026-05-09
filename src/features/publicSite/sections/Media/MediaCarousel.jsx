@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronLeft,
@@ -12,11 +12,11 @@ import { cn } from "../../../../lib/utils.js";
 
 const slotClass = {
   center:
-    "z-[3] visible cursor-default opacity-100 [filter:brightness(1)] xl:[transform:translate3d(0,0,0)_scale(1)]",
+    "[transition-delay:0s,0s,0s,0s] z-[3] visible cursor-default opacity-100 [filter:brightness(1)] [transform:translateX(0)] xl:[transform:translate3d(0,0,0)_scale(1)]",
   left:
-    "z-[1] invisible pointer-events-none cursor-pointer opacity-90 [filter:brightness(0.84)_saturate(0.96)] hover:opacity-[0.96] hover:[filter:brightness(0.9)_saturate(0.96)] xl:visible xl:pointer-events-auto xl:[transform:translate3d(calc(-1_*_clamp(180px,31vw,340px)),0,-96px)_scale(0.88)]",
+    "[transition-delay:0s,0s,0s,450ms] z-[1] invisible pointer-events-none cursor-pointer opacity-0 [filter:brightness(0.84)_saturate(0.96)] [transform:translateX(-100%)] hover:opacity-[0.96] hover:[filter:brightness(0.9)_saturate(0.96)] xl:visible xl:pointer-events-auto xl:opacity-90 xl:[transform:translate3d(calc(-1_*_clamp(180px,31vw,340px)),0,-96px)_scale(0.88)]",
   right:
-    "z-[1] invisible pointer-events-none cursor-pointer opacity-90 [filter:brightness(0.84)_saturate(0.96)] hover:opacity-[0.96] hover:[filter:brightness(0.9)_saturate(0.96)] xl:visible xl:pointer-events-auto xl:[transform:translate3d(clamp(180px,31vw,340px),0,-96px)_scale(0.88)]",
+    "[transition-delay:0s,0s,0s,450ms] z-[1] invisible pointer-events-none cursor-pointer opacity-0 [filter:brightness(0.84)_saturate(0.96)] [transform:translateX(100%)] hover:opacity-[0.96] hover:[filter:brightness(0.9)_saturate(0.96)] xl:visible xl:pointer-events-auto xl:opacity-90 xl:[transform:translate3d(clamp(180px,31vw,340px),0,-96px)_scale(0.88)]",
 };
 
 const centerCardShadow =
@@ -225,7 +225,7 @@ function MediaCard({ card, slot, isActive, onActivate }) {
   return (
     <div
       className={cn(
-        "relative mx-auto w-full max-w-[420px] sm:max-w-none xl:max-w-[660px] [grid-area:1/1] isolate transition-[transform,opacity,filter] duration-[550ms,450ms,450ms] ease-[cubic-bezier(0.22,1,0.32,1),ease,ease] will-change-transform xl:[transform-style:preserve-3d]",
+        "relative mx-auto w-full max-w-[420px] sm:max-w-none xl:max-w-[660px] [grid-area:1/1] isolate transition-[transform,opacity,filter,visibility] duration-[550ms,450ms,450ms,0s] ease-[cubic-bezier(0.22,1,0.32,1),ease,ease,ease] will-change-transform xl:[transform-style:preserve-3d]",
         slotClass[slot],
       )}
       role={isSide ? "button" : undefined}
@@ -248,33 +248,35 @@ function MediaCard({ card, slot, isActive, onActivate }) {
   );
 }
 
-function MediaScrollCarousel({ cards, active, setActive }) {
+const MediaScrollCarousel = ({ cards, active, setActive, ref }) => {
   const trackRef = useRef(null);
   const programmaticRef = useRef(false);
   const programmaticTimerRef = useRef(null);
 
-  useEffect(() => {
+  const clearProgrammatic = useCallback(() => {
+    programmaticRef.current = false;
+    if (programmaticTimerRef.current) {
+      clearTimeout(programmaticTimerRef.current);
+      programmaticTimerRef.current = null;
+    }
+  }, []);
+
+  const scrollToIndex = useCallback(nextIndex => {
     const el = trackRef.current;
-    if (!el) return undefined;
-
-    const child = el.children[active];
-    if (!child) return undefined;
-
+    if (!el) return;
+    const child = el.children[nextIndex];
+    if (!child) return;
     const target = child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2;
-    if (Math.abs(el.scrollLeft - target) < 2) return undefined;
+    if (Math.abs(el.scrollLeft - target) < 2) return;
 
     programmaticRef.current = true;
     el.scrollTo({ left: target, behavior: "smooth" });
 
     if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
-    programmaticTimerRef.current = setTimeout(() => {
-      programmaticRef.current = false;
-    }, 600);
+    programmaticTimerRef.current = setTimeout(clearProgrammatic, 600);
+  }, [clearProgrammatic]);
 
-    return () => {
-      if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
-    };
-  }, [active]);
+  useImperativeHandle(ref, () => ({ scrollToIndex }), [scrollToIndex]);
 
   useEffect(() => {
     const el = trackRef.current;
@@ -302,11 +304,14 @@ function MediaScrollCarousel({ cards, active, setActive }) {
     };
 
     el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener("scrollend", clearProgrammatic);
     return () => {
       el.removeEventListener("scroll", onScroll);
+      el.removeEventListener("scrollend", clearProgrammatic);
       cancelAnimationFrame(raf);
+      if (programmaticTimerRef.current) clearTimeout(programmaticTimerRef.current);
     };
-  }, [setActive]);
+  }, [setActive, clearProgrammatic]);
 
   return (
     <div
@@ -326,17 +331,39 @@ function MediaScrollCarousel({ cards, active, setActive }) {
       ))}
     </div>
   );
-}
+};
+
+const MediaLayeredScene = ({ cards, active, setActive }) => {
+  const length = cards.length;
+  return (
+    <div className="relative mx-auto overflow-hidden pb-2 pt-1 [perspective:1280px] sm:pb-4 xl:overflow-visible">
+      <div className="relative grid grid-cols-1 xl:[transform-style:preserve-3d]">
+        {cards.map((card, index) => (
+          <MediaCard
+            key={card.id}
+            card={card}
+            slot={slideSlot(index, active, length)}
+            isActive={index === active}
+            onActivate={() => setActive(index)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const MediaCarouselIsland = ({ cards, media, heading }) => {
   const [active, setActive] = useState(0);
   const length = cards.length;
+  const carouselRef = useRef(null);
 
   const go = useCallback(
     delta => {
-      setActive(index => (index + delta + length) % length);
+      const next = (active + delta + length) % length;
+      setActive(next);
+      carouselRef.current?.scrollToIndex(next);
     },
-    [length],
+    [active, length],
   );
 
   return (
@@ -351,29 +378,11 @@ const MediaCarouselIsland = ({ cards, media, heading }) => {
 
       <div className="pb-1.5" aria-roledescription="carousel" aria-labelledby="social-media-heading">
         <div className="sm:hidden">
-          <MediaScrollCarousel cards={cards} active={active} setActive={setActive} />
+          <MediaScrollCarousel ref={carouselRef} cards={cards} active={active} setActive={setActive} />
         </div>
-
         <div className="relative mx-auto hidden max-w-[min(1160px,100%)] sm:block">
-          <div className="relative mx-auto overflow-visible pb-2 pt-1 [perspective:1280px] sm:pb-4">
-            <div className="relative grid grid-cols-1 xl:[transform-style:preserve-3d]">
-              {cards.map((card, index) => {
-                const slot = slideSlot(index, active, length);
-
-                return (
-                  <MediaCard
-                    key={card.id}
-                    card={card}
-                    slot={slot}
-                    isActive={index === active}
-                    onActivate={() => setActive(index)}
-                  />
-                );
-              })}
-            </div>
-          </div>
+          <MediaLayeredScene cards={cards} active={active} setActive={setActive} />
         </div>
-
       </div>
     </>
   );
