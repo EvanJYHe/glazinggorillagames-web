@@ -194,9 +194,9 @@ export const publicSiteContractContent = {
   contact: {
     titleLines: ["Let's", "Work Together"],
     body: "Have a game to build, scale, or sell? Tell us what you are working on.",
-    namePlaceholder: "Your name",
-    emailPlaceholder: "Email address",
-    messagePlaceholder: "Tell us about your game. Include a Roblox link and any useful metrics.",
+    namePlaceholder: "Jane Carver",
+    emailPlaceholder: "jane@studio.gg",
+    messagePlaceholder: "A Roblox link, your role, where it stands today, and what you need.",
     submitLabel: "Send Message",
     subjectPrefix: "GGG inquiry from ",
     replyPrefix: "Reply to:",

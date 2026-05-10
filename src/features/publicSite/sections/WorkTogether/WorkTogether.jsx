@@ -6,10 +6,10 @@ import Button from "../../ui/Button.jsx";
 import PageContainer from "../../ui/PageContainer.jsx";
 
 const fieldClass =
-  "w-full appearance-none border-0 border-b border-ggg-border bg-transparent px-0 pb-3 pt-2 font-inter text-[15px] text-ggg-text outline-none transition-colors duration-200 placeholder:text-ggg-text/40 focus:border-ggg-accent";
+  "w-full appearance-none border-0 border-b border-ggg-border bg-transparent px-0 pb-3 pt-2 font-inter text-[16px] font-normal text-ggg-text outline-none transition-colors duration-200 placeholder:font-normal placeholder:text-[oklch(0.5_0.015_60)] focus:border-ggg-accent";
 
 const labelClass =
-  "mb-2 block font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-ggg-muted";
+  "mb-2 block font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-ggg-muted";
 
 const radialGlowClass =
   "pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_55%_at_24%_52%,oklch(28%_0.16_18_/_0.38)_0%,transparent_62%)]";
@@ -75,7 +75,7 @@ const WorkTogether = ({ contactEmail, pumpkinKeyArtUrl, workTogether }) => {
             <br />
             <SplitText text={workTogether.titleLines[1]} startDelay={150} className="text-ggg-accent" />
           </h2>
-          <p className="mx-auto mb-12 max-w-[440px] text-[15.5px] leading-[1.6] text-ggg-muted lg:mx-0">
+          <p className="mx-auto mb-12 max-w-[440px] text-[15px] font-normal leading-[1.6] text-ggg-muted lg:mx-0">
             {workTogether.body}
           </p>
 
