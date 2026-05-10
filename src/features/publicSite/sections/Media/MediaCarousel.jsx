@@ -133,7 +133,7 @@ function MediaPanel({ card, isActive, className }) {
 }
 
 const ctaClass =
-  "inline-flex self-start items-center gap-2 rounded-ggg-sm border border-[rgba(240,237,232,0.2)] bg-transparent px-5.5 py-[11px] text-xs font-bold uppercase tracking-[0.12em] text-ggg-text no-underline transition-[border-color,background] duration-200";
+  "inline-flex self-start items-center gap-2 rounded-none border border-[rgba(240,237,232,0.2)] bg-transparent px-5.5 py-[11px] text-xs font-bold uppercase tracking-[0.12em] text-ggg-text no-underline transition-[border-color,background] duration-200";
 
 function MediaCta({ card, isActive, className }) {
   if (isActive) {

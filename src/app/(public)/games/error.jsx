@@ -15,13 +15,13 @@ export default function GamesError({ reset }) {
         <button
           type="button"
           onClick={() => reset()}
-          className="rounded-ggg-sm bg-ggg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-[0.04em] text-white transition-colors hover:brightness-110"
+          className="rounded-none bg-ggg-accent px-5 py-2.5 text-xs font-bold uppercase tracking-[0.04em] text-white transition-colors hover:brightness-110"
         >
           Retry
         </button>
         <Link
           href="/"
-          className="rounded-ggg-sm border border-ggg-border px-5 py-2.5 text-xs font-bold uppercase tracking-[0.04em] text-ggg-muted transition-colors hover:border-ggg-border-strong hover:text-white"
+          className="rounded-none border border-ggg-border px-5 py-2.5 text-xs font-bold uppercase tracking-[0.04em] text-ggg-muted transition-colors hover:border-ggg-border-strong hover:text-white"
         >
           Home
         </Link>

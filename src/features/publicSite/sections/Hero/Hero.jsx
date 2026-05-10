@@ -30,11 +30,6 @@ const Hero = ({ hero, heroKeyArtUrl }) => {
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(9,9,9,1)_0%,transparent_40%)]" />
       </div>
 
-      <div
-        className="pointer-events-none absolute inset-0 z-[2] opacity-[0.028] [background-image:linear-gradient(rgba(240,237,232,1)_1px,transparent_1px),linear-gradient(90deg,rgba(240,237,232,1)_1px,transparent_1px)] [background-size:72px_72px]"
-        aria-hidden
-      />
-
       <PageContainer className="relative z-[3] flex flex-col items-start">
         <h1 className="mb-8 mt-2 font-bebas font-bold leading-[0.88] tracking-[0.01em] text-[clamp(84px,26vw,140px)] uppercase text-ggg-text [font-synthesis:weight_style] sm:mt-6 sm:text-ggg-hero lg:mb-8 lg:mt-10">
           {hero.titleLines[0]}

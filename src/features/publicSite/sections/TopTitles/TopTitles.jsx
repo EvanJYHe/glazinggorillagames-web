@@ -23,7 +23,7 @@ const TopTitles = ({ error, gameCard, games, topTitles }) => (
       <Button
         as={Link}
         href="/games"
-        variant="ghost"
+        variant="primary"
         className="shrink-0 whitespace-nowrap px-5.5 py-2.5 text-xs max-[380px]:px-3 max-[380px]:py-2 max-[380px]:text-[10px]"
       >
         {topTitles.viewAllLabel}
