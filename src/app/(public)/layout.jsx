@@ -1,4 +1,4 @@
-import { Bebas_Neue, DM_Sans, Inter } from "next/font/google";
+import { Bebas_Neue, Inter, JetBrains_Mono } from "next/font/google";
 
 import "../globals.css";
 
@@ -9,18 +9,18 @@ const bebas = Bebas_Neue({
   variable: "--font-bebas",
 });
 
-const dm = DM_Sans({
-  weight: ["400", "500", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-dm",
-});
-
 const inter = Inter({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+});
+
+const mono = JetBrains_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 export const metadata = {
@@ -31,7 +31,7 @@ export const metadata = {
 
 export default function PublicRootLayout({ children }) {
   return (
-    <html lang="en" className={`${bebas.variable} ${dm.variable} ${inter.variable}`}>
+    <html lang="en" className={`${bebas.variable} ${inter.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

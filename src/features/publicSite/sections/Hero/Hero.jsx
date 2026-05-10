@@ -44,7 +44,7 @@ const Hero = ({ hero, heroKeyArtUrl }) => {
           <span className="text-ggg-accent">{hero.titleLines[2]}</span>
         </h1>
 
-        <p className="mb-10 max-w-[480px] text-[clamp(17px,1.55vw,19px)] font-normal leading-[1.55] text-ggg-muted sm:mb-10 xl:text-[clamp(15px,1.3vw,17px)] xl:leading-[1.7]">
+        <p className="mb-10 max-w-[480px] font-inter text-[clamp(17px,1.55vw,19px)] font-normal leading-[1.55] text-ggg-muted sm:mb-10 xl:text-[clamp(15px,1.3vw,17px)] xl:leading-[1.7]">
           {hero.body}
         </p>
 

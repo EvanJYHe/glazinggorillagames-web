@@ -9,7 +9,7 @@ const CredibilityTicker = ({ ticker }) => {
       <div className="flex w-max animate-landing-ticker group-hover:[animation-play-state:paused]">
         {items.map((item, index) => (
           <div
-            className="flex items-center gap-[7px] whitespace-nowrap px-9 font-dm text-xs font-semibold uppercase tracking-[0.12em] text-ggg-dim"
+            className="flex items-center gap-[7px] whitespace-nowrap px-9 font-inter text-xs font-semibold uppercase tracking-[0.12em] text-ggg-dim"
             key={`${item.text}-${index}`}
           >
             {item.star ? (

@@ -1,7 +1,7 @@
 import { cn } from "../../../lib/utils.js";
 
 const baseClass =
-  "inline-flex w-max max-w-full flex-none touch-manipulation items-center justify-center gap-2 whitespace-nowrap rounded-ggg-sm font-dm leading-none outline-none transition duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ggg-bg focus-visible:ring-ggg-accent";
+  "inline-flex w-max max-w-full flex-none touch-manipulation items-center justify-center gap-2 whitespace-nowrap rounded-ggg-sm font-inter leading-none outline-none transition duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ggg-bg focus-visible:ring-ggg-accent";
 
 const variantClass = {
   primary:
