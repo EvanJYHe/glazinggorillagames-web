@@ -9,7 +9,7 @@ const variantClass = {
   ghost:
     "border border-white/[0.18] bg-transparent px-[26px] py-3 text-ggg-body-sm font-semibold uppercase tracking-[0.07em] text-ggg-text hover:border-white/[0.42] hover:bg-white/[0.04] max-[480px]:px-5",
   pill:
-    "bg-ggg-accent px-3.5 py-2 text-ggg-body-xs font-bold tracking-[0.05em] text-white hover:opacity-[0.82] sm:px-4.5 sm:py-[7px]",
+    "rounded-[3px] bg-ggg-accent px-4 py-2 font-inter text-[12.5px] font-bold uppercase tracking-[0.06em] text-white hover:opacity-[0.88] sm:px-5 sm:py-[9px]",
 };
 
 const Button = ({

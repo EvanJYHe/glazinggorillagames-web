@@ -3,12 +3,12 @@ import Link from "next/link";
 import BrandLogo from "../../shared/BrandLogo/BrandLogo.jsx";
 import Button from "../../ui/Button.jsx";
 import HeaderNavLinks from "./HeaderNavLinks.jsx";
-import NavScrollState from "./NavScrollState.jsx";
+import HeaderShell from "./HeaderShell.jsx";
 
 const Header = ({ brandLogoUrl, groupUrl, header, site }) => (
-  <NavScrollState ariaLabel={header.ariaLabel}>
+  <HeaderShell ariaLabel={header.ariaLabel}>
     <Link
-      className="inline-flex shrink-0 items-center gap-[9px] text-ggg-text no-underline touch-manipulation"
+      className="inline-flex shrink-0 items-center gap-[9px] justify-self-start text-ggg-text no-underline touch-manipulation"
       href="/"
       aria-label={header.homeAriaLabel}
     >
@@ -18,13 +18,21 @@ const Header = ({ brandLogoUrl, groupUrl, header, site }) => (
       </span>
     </Link>
 
-    <div className="flex shrink-0 items-center gap-5 lg:gap-7">
+    <div className="hidden shrink-0 items-center gap-7 justify-self-center sm:flex lg:gap-10">
       <HeaderNavLinks items={header.items} />
-      <Button as="a" href={groupUrl} target="_blank" rel="noopener noreferrer" variant="pill">
-        {header.groupCtaLabel}
-      </Button>
     </div>
-  </NavScrollState>
+
+    <Button
+      as="a"
+      href={groupUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="pill"
+      className="justify-self-end"
+    >
+      {header.groupCtaLabel}
+    </Button>
+  </HeaderShell>
 );
 
 export default Header;

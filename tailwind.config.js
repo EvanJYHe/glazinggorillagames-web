@@ -33,6 +33,7 @@ export default {
       fontFamily: {
         bebas: ["var(--font-bebas)", "sans-serif"],
         dm: ["var(--font-dm)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
       },
       fontSize: {
         "ggg-hero": ["clamp(80px, 11vw, 160px)", { lineHeight: "0.88", letterSpacing: "0.01em" }],

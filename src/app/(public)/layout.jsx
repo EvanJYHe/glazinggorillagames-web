@@ -1,4 +1,4 @@
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import { Bebas_Neue, DM_Sans, Inter } from "next/font/google";
 
 import "../globals.css";
 
@@ -16,6 +16,13 @@ const dm = DM_Sans({
   variable: "--font-dm",
 });
 
+const inter = Inter({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata = {
   title: "Glazing Gorilla Games",
   description:
@@ -24,7 +31,7 @@ export const metadata = {
 
 export default function PublicRootLayout({ children }) {
   return (
-    <html lang="en" className={`${bebas.variable} ${dm.variable}`}>
+    <html lang="en" className={`${bebas.variable} ${dm.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );

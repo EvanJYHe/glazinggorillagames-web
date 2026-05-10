@@ -58,8 +58,8 @@ export default function HeaderNavLinks({ items }) {
     const sectionId = getSectionId(item.href);
     const isActive = sectionId !== null && sectionId === activeSectionId;
     const className = cn(
-      "hidden text-ggg-body-xs font-normal tracking-[0.04em] text-ggg-text touch-manipulation transition-colors sm:inline",
-      isActive && "text-ggg-accent",
+      "font-inter text-[14px] font-medium tracking-[-0.005em] text-ggg-muted touch-manipulation transition-colors hover:text-ggg-text",
+      isActive && "text-ggg-accent underline underline-offset-[6px] decoration-2 decoration-ggg-accent",
     );
 
     if (sectionId !== null && isHome) {
