@@ -83,6 +83,12 @@ function buildMediaAssets(mediaAssetDocs) {
         url: urlFor("services.publishingAcquisitions"),
       },
     },
+    contact: {
+      pumpkinKeyArt: {
+        ...fallbackMediaAssets.contact.pumpkinKeyArt,
+        url: urlFor("contact.pumpkinKeyArt"),
+      },
+    },
   };
 }
 

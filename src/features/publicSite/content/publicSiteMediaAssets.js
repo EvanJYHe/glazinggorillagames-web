@@ -17,6 +17,9 @@ export const publicSiteMediaAssets = {
     originalGames: emptyAsset(publicSiteMediaCatalog.services.originalGames),
     publishingAcquisitions: emptyAsset(publicSiteMediaCatalog.services.publishingAcquisitions),
   },
+  contact: {
+    pumpkinKeyArt: emptyAsset(publicSiteMediaCatalog.contact.pumpkinKeyArt),
+  },
 };
 
 export function getPublicSiteMediaAsset(assetKey) {

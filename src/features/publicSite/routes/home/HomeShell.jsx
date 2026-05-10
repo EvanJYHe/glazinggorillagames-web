@@ -29,6 +29,7 @@ const HomeShell = ({ children, groupUrl, mediaAssets, siteContent }) => (
     <FadeIn>
       <WorkTogether
         contactEmail={siteContent.site.contactEmail}
+        pumpkinKeyArtUrl={mediaAssets.contact.pumpkinKeyArt.url}
         workTogether={siteContent.workTogether}
       />
     </FadeIn>

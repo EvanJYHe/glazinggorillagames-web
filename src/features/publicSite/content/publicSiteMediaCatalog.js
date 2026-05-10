@@ -35,6 +35,12 @@ export const publicSiteMediaCatalog = {
       kind: "image",
     },
   },
+  contact: {
+    pumpkinKeyArt: {
+      id: "contact.pumpkinKeyArt",
+      kind: "image",
+    },
+  },
 };
 
 export const publicSiteMediaCatalogInventory = [
@@ -46,4 +52,5 @@ export const publicSiteMediaCatalogInventory = [
   publicSiteMediaCatalog.services.brandIntegrations,
   publicSiteMediaCatalog.services.originalGames,
   publicSiteMediaCatalog.services.publishingAcquisitions,
+  publicSiteMediaCatalog.contact.pumpkinKeyArt,
 ];
