@@ -13,7 +13,7 @@ const Header = ({ brandLogoUrl, groupUrl, header, site }) => (
       aria-label={header.homeAriaLabel}
     >
       <BrandLogo src={brandLogoUrl} variant="nav" />
-      <span className="whitespace-nowrap font-bebas text-sm font-normal uppercase leading-none tracking-[0.1em] [font-synthesis:none] sm:text-ggg-body lg:text-lg">
+      <span className="whitespace-nowrap font-bebas text-base font-normal uppercase leading-none tracking-[0.1em] [font-synthesis:none] sm:text-lg lg:text-xl">
         {site.name}
       </span>
     </Link>
