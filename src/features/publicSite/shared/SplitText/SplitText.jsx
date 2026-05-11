@@ -11,8 +11,9 @@ const SplitText = ({
   stagger = 40,
   threshold = 0.15,
   rootMargin = "0px 0px -10% 0px",
+  immediate = false,
 }) => {
-  const [ref, visible] = useInViewOnce({ threshold, rootMargin });
+  const [ref, visible] = useInViewOnce({ threshold, rootMargin, immediate });
 
   const parts = String(text ?? "").split(/(\s+)/);
   let wordIndex = 0;

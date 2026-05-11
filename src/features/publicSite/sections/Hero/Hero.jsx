@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import FadeIn from "../../shared/FadeIn/FadeIn.jsx";
+import SplitText from "../../shared/SplitText/SplitText.jsx";
 import Button from "../../ui/Button.jsx";
 import PageContainer from "../../ui/PageContainer.jsx";
 
@@ -18,32 +20,50 @@ const Hero = ({ hero, heroKeyArtUrl }) => {
       />
 
       <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden="true">
-        <img
-          className="absolute right-0 top-12 block h-full w-full max-w-none object-cover object-center opacity-30 saturate-75 [-webkit-mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.6)_15%,black_40%)] [mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.6)_15%,black_40%)] lg:landscape:top-[60px] lg:landscape:w-[65%] lg:landscape:opacity-[0.42]"
-          src={heroKeyArtUrl}
-          alt=""
-          decoding="async"
-          loading="eager"
-          fetchPriority="high"
-        />
+        <FadeIn variant="soft" immediate delay={150} className="absolute inset-0">
+          <img
+            className="absolute right-0 top-12 block h-full w-full max-w-none object-cover object-center opacity-30 saturate-75 [-webkit-mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.6)_15%,black_40%)] [mask-image:linear-gradient(to_right,transparent_0%,rgba(0,0,0,0.6)_15%,black_40%)] lg:landscape:top-[60px] lg:landscape:w-[65%] lg:landscape:opacity-[0.42]"
+            src={heroKeyArtUrl}
+            alt=""
+            decoding="async"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </FadeIn>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(9,9,9,1)_0%,rgba(9,9,9,0.98)_35%,rgba(9,9,9,0.7)_50%,rgba(9,9,9,0)_70%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(9,9,9,1)_0%,transparent_40%)]" />
       </div>
 
       <PageContainer className="relative z-[3] flex flex-col items-start">
         <h1 className="mb-8 mt-2 font-bebas font-bold leading-[0.88] tracking-[0.01em] text-[clamp(84px,26vw,140px)] uppercase text-ggg-text [font-synthesis:weight_style] sm:mt-6 sm:text-ggg-hero lg:mb-8 lg:mt-10">
-          {hero.titleLines[0]}
+          <SplitText as="span" text={hero.titleLines[0]} immediate startDelay={250} stagger={60} />
           <br />
-          {hero.titleLines[1]}
+          <SplitText as="span" text={hero.titleLines[1]} immediate startDelay={550} stagger={60} />
           <br />
-          <span className="text-ggg-accent">{hero.titleLines[2]}</span>
+          <SplitText
+            as="span"
+            text={hero.titleLines[2]}
+            className="text-ggg-accent"
+            immediate
+            startDelay={850}
+            stagger={60}
+          />
         </h1>
 
-        <p className="mb-10 max-w-[480px] font-inter text-[clamp(17px,1.55vw,19px)] font-normal leading-[1.55] text-ggg-muted sm:mb-10 xl:text-[clamp(15px,1.3vw,17px)] xl:leading-[1.7]">
+        <FadeIn
+          as="p"
+          immediate
+          delay={1200}
+          className="mb-10 max-w-[480px] font-inter text-[clamp(17px,1.55vw,19px)] font-normal leading-[1.55] text-ggg-muted sm:mb-10 xl:text-[clamp(15px,1.3vw,17px)] xl:leading-[1.7]"
+        >
           {hero.body}
-        </p>
+        </FadeIn>
 
-        <div className="mb-2 flex flex-wrap gap-3 sm:inline-grid sm:auto-cols-fr sm:grid-flow-col lg:mb-16">
+        <FadeIn
+          immediate
+          delay={1450}
+          className="mb-2 flex flex-wrap gap-3 sm:inline-grid sm:auto-cols-fr sm:grid-flow-col lg:mb-16"
+        >
           <Button
             as={Link}
             href="/games"
@@ -63,7 +83,7 @@ const Hero = ({ hero, heroKeyArtUrl }) => {
           >
             {hero.secondaryCtaLabel}
           </Button>
-        </div>
+        </FadeIn>
       </PageContainer>
     </section>
   );
