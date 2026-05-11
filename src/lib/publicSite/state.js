@@ -144,8 +144,15 @@ function getCanonicalSiteContent({ publicSiteGlobal, siteSettings, mediaCards, s
     }),
     contact: publicSiteGlobal?.contact || fallback.contact,
     footer: publicSiteGlobal?.footer || fallback.footer,
-    gameCard: publicSiteGlobal?.gameCard || fallback.gameCard,
-    gamesPage: publicSiteGlobal?.gamesPage || fallback.gamesPage,
+    gameCard: { ...fallback.gameCard, ...(publicSiteGlobal?.gameCard || {}) },
+    gamesPage: {
+      ...fallback.gamesPage,
+      ...(publicSiteGlobal?.gamesPage || {}),
+      moreCard: {
+        ...fallback.gamesPage.moreCard,
+        ...(publicSiteGlobal?.gamesPage?.moreCard || {}),
+      },
+    },
   };
 
   siteContent.header = siteContent.nav;

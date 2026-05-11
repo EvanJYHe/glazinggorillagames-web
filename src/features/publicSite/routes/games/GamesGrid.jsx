@@ -1,9 +1,19 @@
 import { getPublicSiteState } from "@/lib/publicSite/state.js";
-import { getPublicSiteGamesPageData } from "../../data/publicSiteData.js";
+import { formatCompactNumber, getPublicSiteGamesPageData } from "../../data/publicSiteData.js";
 import FadeIn from "../../shared/FadeIn/FadeIn.jsx";
 import GameCardGrid from "../../shared/GameCard/GameCardGrid.jsx";
+import MoreGamesCard from "../../shared/GameCard/MoreGamesCard.jsx";
 import StateCard from "../../ui/StateCard.jsx";
 import { GAMES_GALLERY_GRID_CLASS } from "./GamesGallerySkeleton.jsx";
+
+const VISIBLE_GAME_LIMIT = 11;
+const FADE_DELAY_STEP_MS = 60;
+const FADE_DELAY_MAX_INDEX = 7;
+
+const fadeDelay = (index) => Math.min(index, FADE_DELAY_MAX_INDEX) * FADE_DELAY_STEP_MS;
+
+const sumHiddenVisits = (games) =>
+  games.reduce((acc, game) => acc + (game.visits || 0), 0);
 
 export default async function GamesGrid() {
   const state = await getPublicSiteState();
@@ -15,29 +25,38 @@ export default async function GamesGrid() {
     siteContent,
   });
 
-  const runtimeAvailable = state.contract.metrics.hasRuntimeData;
-  const errorMessage = siteContent.topTitles.errorMessage;
+  if (!pageData.games.length) {
+    return <StateCard>{siteContent.gamesPage.emptyMessage}</StateCard>;
+  }
+
+  const visibleGames = pageData.games.slice(0, VISIBLE_GAME_LIMIT);
+  const hiddenGames = pageData.games.slice(VISIBLE_GAME_LIMIT);
+  const hiddenVisitsLabel = formatCompactNumber(sumHiddenVisits(hiddenGames));
 
   return (
     <>
-      {!runtimeAvailable ? <StateCard>{errorMessage}</StateCard> : null}
-
-      {pageData.games.length ? (
-        <div className={GAMES_GALLERY_GRID_CLASS} aria-labelledby="games-page-heading">
-          {pageData.games.map((game, index) => (
-            <FadeIn
-              key={game.universeId}
-              variant="pop"
-              delay={Math.min(index, 7) * 60}
-              immediate
-            >
-              <GameCardGrid game={game} gameCard={siteContent.gameCard} />
-            </FadeIn>
-          ))}
-        </div>
-      ) : (
-        <StateCard>{siteContent.gamesPage.emptyMessage}</StateCard>
+      {state.contract.metrics.hasRuntimeData ? null : (
+        <StateCard>{siteContent.topTitles.errorMessage}</StateCard>
       )}
+
+      <div className={GAMES_GALLERY_GRID_CLASS} aria-labelledby="games-page-heading">
+        {visibleGames.map((game, index) => (
+          <FadeIn key={game.universeId} variant="pop" delay={fadeDelay(index)} immediate>
+            <GameCardGrid game={game} gameCard={siteContent.gameCard} />
+          </FadeIn>
+        ))}
+
+        {hiddenGames.length > 0 ? (
+          <FadeIn variant="pop" delay={fadeDelay(visibleGames.length)} immediate>
+            <MoreGamesCard
+              count={hiddenGames.length}
+              totalVisitsLabel={hiddenVisitsLabel}
+              brandLogoUrl={state.mediaAssets.brandLogo.url}
+              content={siteContent.gamesPage.moreCard}
+            />
+          </FadeIn>
+        ) : null}
+      </div>
     </>
   );
 }

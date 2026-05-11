@@ -222,6 +222,11 @@ export const publicSiteContractContent = {
     titleLead: "All",
     titleAccent: "Games",
     emptyMessage: "No games to show right now. Check back soon.",
+    moreCard: {
+      countPrefix: "+",
+      label: "more games",
+      visitsUnitLabel: "combined visits",
+    },
   },
 };
 

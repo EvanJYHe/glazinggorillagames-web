@@ -182,6 +182,9 @@ export interface Game {
    * Higher values appear first. Leave at 0 for the default ranking (sorted by lifetime visits). Use a positive value to pin a game above the rest.
    */
   displayOrder?: number | null;
+  /**
+   * Uncheck to hide this game everywhere on the public site (catalog, top titles, stats, and the +N more games tile). The record stays in the CMS so it can be re-enabled later.
+   */
   isActive?: boolean | null;
   updatedAt: string;
   createdAt: string;

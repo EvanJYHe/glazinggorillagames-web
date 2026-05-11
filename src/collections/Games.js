@@ -39,8 +39,13 @@ export const Games = {
     },
     {
       name: "isActive",
+      label: "Show on public site",
       type: "checkbox",
       defaultValue: true,
+      admin: {
+        description:
+          "Uncheck to hide this game everywhere on the public site (catalog, top titles, stats, and the +N more games tile). The record stays in the CMS so it can be re-enabled later.",
+      },
     },
   ],
   hooks: {
