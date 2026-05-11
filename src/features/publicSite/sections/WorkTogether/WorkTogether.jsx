@@ -6,7 +6,7 @@ import Button from "../../ui/Button.jsx";
 import PageContainer from "../../ui/PageContainer.jsx";
 
 const fieldClass =
-  "w-full appearance-none border-0 border-b border-ggg-border bg-transparent px-0 pb-3 pt-2 font-inter text-[16px] font-normal text-ggg-text outline-none transition-colors duration-200 placeholder:font-normal placeholder:text-[oklch(0.5_0.015_60)] focus:border-ggg-accent";
+  "w-full appearance-none border-0 border-b border-ggg-border bg-transparent px-0 pb-3 pt-2 font-mono text-[14px] font-normal tracking-[0.04em] text-ggg-text outline-none transition-colors duration-200 placeholder:font-normal placeholder:tracking-[0.04em] placeholder:text-[oklch(0.5_0.015_60)] focus:border-ggg-accent";
 
 const labelClass =
   "mb-2 block font-mono text-[10px] font-normal uppercase tracking-[0.2em] text-ggg-muted";
