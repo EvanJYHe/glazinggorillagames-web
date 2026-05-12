@@ -3,10 +3,17 @@
 import { useEffect, useRef } from "react";
 
 const DEFAULT_MIN_WIDTH = 640;
+const DEFAULT_MAX_OFFSET_RATIO = 0.35;
 const LERP_FACTOR = 0.16;
 const SETTLE_THRESHOLD = 0.15;
 
-const useParallax = ({ speed = 0.2, minWidth = DEFAULT_MIN_WIDTH } = {}) => {
+const clamp = (value, limit) => Math.max(-limit, Math.min(limit, value));
+
+const useParallax = ({
+  speed = 0.2,
+  minWidth = DEFAULT_MIN_WIDTH,
+  maxOffsetRatio = DEFAULT_MAX_OFFSET_RATIO,
+} = {}) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -24,7 +31,8 @@ const useParallax = ({ speed = 0.2, minWidth = DEFAULT_MIN_WIDTH } = {}) => {
 
     const tick = () => {
       const rect = node.getBoundingClientRect();
-      target = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
+      const raw = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
+      target = clamp(raw, rect.height * maxOffsetRatio);
       current += (target - current) * LERP_FACTOR;
 
       const settled = Math.abs(target - current) < SETTLE_THRESHOLD;
@@ -59,7 +67,7 @@ const useParallax = ({ speed = 0.2, minWidth = DEFAULT_MIN_WIDTH } = {}) => {
       node.style.transform = "";
       node.style.willChange = "";
     };
-  }, [speed, minWidth]);
+  }, [speed, minWidth, maxOffsetRatio]);
 
   return ref;
 };
