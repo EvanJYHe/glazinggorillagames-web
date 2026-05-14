@@ -209,9 +209,11 @@ export async function upsertGameWithThumbnailCache(payload, { game, image, refre
     logger,
   });
 
+  const visits = Math.max(game.visits || 0, existing?.visits || 0);
+
   return upsertGameMetrics(
     payload,
-    buildGameMetricsRow({ game, image, refreshedAt, cachedUrl, cachedAt })
+    buildGameMetricsRow({ game: { ...game, visits }, image, refreshedAt, cachedUrl, cachedAt })
   );
 }
 
