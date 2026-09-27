@@ -117,7 +117,7 @@ export const publicSiteContractContent = {
         mediaAsset: "socialProof.viralReach",
         mediaAlt: "CONSUME gameplay reel from Glazing Gorilla Games.",
         mediaOverlay: {
-          primary: "CONSUME on Roblox",
+          primary: "38.3 million views",
           icon: "instagram",
         },
       },
