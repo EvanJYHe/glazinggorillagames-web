@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Instagram,
+  Play,
 } from "lucide-react";
 import posthog from "posthog-js";
 
@@ -44,18 +45,22 @@ function slideSlot(index, active, len) {
   return "left";
 }
 
-function MediaLoopVideo({ src, caption, isActive }) {
+export function MediaLoopVideo({ src, caption, isActive }) {
   const ref = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const play = useCallback(() => {
+    const element = ref.current;
+    if (!element || !isActive) return;
+    element.muted = true;
+    if (element.error) element.load();
+    // A user can retry with the play button when mobile autoplay is blocked.
+    element.play().catch(() => {});
+  }, [isActive]);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return undefined;
-
-    const tryPlay = () => {
-      if (!isActive) return;
-      element.muted = true;
-      element.play().catch(() => {});
-    };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,7 +68,7 @@ function MediaLoopVideo({ src, caption, isActive }) {
           element.pause();
           return;
         }
-        tryPlay();
+        play();
       },
       { threshold: 0.12, rootMargin: "48px" },
     );
@@ -71,23 +76,42 @@ function MediaLoopVideo({ src, caption, isActive }) {
     observer.observe(element);
 
     if (!isActive) element.pause();
-    else tryPlay();
 
-    return () => observer.disconnect();
-  }, [isActive, src]);
+    return () => {
+      observer.disconnect();
+      element.pause();
+    };
+  }, [isActive, src, play]);
 
   return (
-    <video
-      ref={ref}
-      className="absolute inset-0 block h-full w-full object-cover object-top"
-      src={src}
-      muted
-      playsInline
-      loop
-      preload="metadata"
-      tabIndex={-1}
-      aria-label={caption}
-    />
+    <>
+      <video
+        ref={ref}
+        className="absolute inset-0 block h-full w-full object-cover object-top"
+        src={src}
+        muted
+        playsInline
+        loop
+        preload="metadata"
+        tabIndex={-1}
+        aria-label={caption}
+        onPlaying={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEmptied={() => setIsPlaying(false)}
+        onError={() => setIsPlaying(false)}
+      />
+      {isActive && !isPlaying ? (
+        <button
+          type="button"
+          onClick={play}
+          aria-label={`Play ${caption || "video"}`}
+          className="absolute left-1/2 top-1/2 z-[3] flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-white/30 bg-black/70 px-5 py-3 text-sm font-semibold text-white shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ggg-accent"
+        >
+          <Play size={18} fill="currentColor" aria-hidden />
+          Play video
+        </button>
+      ) : null}
+    </>
   );
 }
 
