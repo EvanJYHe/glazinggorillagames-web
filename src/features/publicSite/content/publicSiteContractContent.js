@@ -112,12 +112,12 @@ export const publicSiteContractContent = {
         descriptionMobile:
           "Our short-form content has earned 150M+ views across TikTok, Instagram, and YouTube.",
         ctaLabel: "WATCH HIGHLIGHTS",
-        ctaHref: "https://www.tiktok.com/@glazinggorillagames?lang=en",
+        ctaHref: "https://www.instagram.com/reel/C_68B7KRJ8w/",
         mediaType: "video",
         mediaAsset: "socialProof.viralReach",
-        mediaAlt: "Gameplay clip from Glazing Gorilla Games.",
+        mediaAlt: "CONSUME gameplay reel from Glazing Gorilla Games.",
         mediaOverlay: {
-          primary: "38.3 million views",
+          primary: "CONSUME on Roblox",
           icon: "instagram",
         },
       },
