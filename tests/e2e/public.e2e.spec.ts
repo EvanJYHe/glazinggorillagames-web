@@ -52,7 +52,7 @@ test.describe('Public discovery resources', () => {
     expect(canonical).toBeTruthy()
     expect(new URL(canonical || baseUrl).pathname).toBe('/')
     await expect(page.locator('meta[property="og:type"]')).toHaveAttribute('content', 'website')
-    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /opengraph-image/)
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /\/social-preview\.png$/)
 
     const ogImage = new URL((await page.locator('meta[property="og:image"]').getAttribute('content')) || '', baseUrl)
     const ogImageResponse = await request.get(`${baseUrl}${ogImage.pathname}${ogImage.search}`)

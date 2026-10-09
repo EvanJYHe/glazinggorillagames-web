@@ -39,6 +39,13 @@ export function createPageMetadata({
   path = "/",
   title = SITE_NAME,
 } = {}) {
+  const socialImage = {
+    url: "/social-preview.png",
+    width: 1200,
+    height: 630,
+    alt: "Glazing Gorilla Games — Roblox game studio",
+  };
+
   return {
     title,
     description,
@@ -52,11 +59,13 @@ export function createPageMetadata({
       siteName: SITE_NAME,
       type: "website",
       url: path,
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [socialImage],
     },
   };
 }

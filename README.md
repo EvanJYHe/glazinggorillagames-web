@@ -168,6 +168,10 @@ pnpm test                   # run both test suites
 
 ## Deployment
 
+The social share preview is the static image at
+`public/social-preview.png`. Replace this file to update its design;
+it does not regenerate from CMS changes or run image processing on the server.
+
 The repository contains two Railway service definitions:
 
 - `railway.json` builds and starts the Next.js/Payload web service, with

@@ -6,6 +6,11 @@ const nextConfig = {
   reactCompiler: false,
   async rewrites() {
     return [
+      // Keep previews using the previous generated image URL working.
+      {
+        source: "/opengraph-image-1c1a04",
+        destination: "/social-preview.png",
+      },
       {
         source: "/ingest/static/:path*",
         destination: "https://us-assets.i.posthog.com/static/:path*",
